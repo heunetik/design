@@ -1,0 +1,6 @@
+# Every app on any origin loads these files, and browsers only use cross-origin fonts sent with CORS.
+# Files under /v1/ change in place, so caches revalidate hourly.
+/*
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+  Cache-Control: public, max-age=3600

@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "design",
+  "compatibility_date": "2026-09-01",
+  "routes": [{ "pattern": "design.heunetik.dev", "custom_domain": true }],
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {
+    "directory": "./public"
+  }
+}

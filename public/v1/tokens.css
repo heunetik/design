@@ -1,0 +1,124 @@
+@layer heu.tokens, heu.base, heu.components;
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(./fonts/atkinson-hyperlegible-next.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url(./fonts/atkinson-hyperlegible-next-italic.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url(./fonts/jetbrains-mono.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: italic;
+  font-weight: 100 800;
+  font-display: swap;
+  src: url(./fonts/jetbrains-mono-italic.woff2) format('woff2');
+}
+
+@layer heu.tokens {
+  :root {
+    --heu-color-page: light-dark(#eef0f5, #121419);
+    --heu-color-surface: light-dark(#ffffff, #1b1e26);
+    --heu-color-sunken: light-dark(#f4f5f9, #232731);
+    --heu-color-border: light-dark(#d3d7e1, #2f3442);
+    --heu-color-edge: light-dark(#c3c8d5, #0a0c10);
+    --heu-color-text: light-dark(#1c2030, #e8eaf2);
+    --heu-color-text-muted: light-dark(#5b6275, #a2a9bb);
+
+    --heu-color-accent: light-dark(#3157e8, #7f9cff);
+    --heu-color-accent-edge: light-dark(#1f3cb0, #4a66d0);
+    --heu-color-accent-soft: light-dark(#e6ecff, #1f2a55);
+    --heu-color-on-accent: light-dark(#ffffff, #0d1020);
+
+    --heu-color-good: light-dark(#138a52, #5fdc9c);
+    --heu-color-good-soft: light-dark(#d9f5e7, #15382a);
+    --heu-color-warn: light-dark(#8a6100, #f3cf63);
+    --heu-color-warn-soft: light-dark(#fcf0c8, #3a3217);
+    --heu-color-bad: light-dark(#c92a45, #ff8a9c);
+    --heu-color-bad-soft: light-dark(#fde0e5, #43202b);
+
+    --heu-font-sans: 'Atkinson Hyperlegible Next', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --heu-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
+    --heu-size-1: 0.75rem;
+    --heu-size-2: 0.85rem;
+    --heu-size-3: 1rem;
+    --heu-size-4: 1.1rem;
+    --heu-size-5: 1.7rem;
+    --heu-leading: 1.6;
+    --heu-tracking-tight: -0.02em;
+    --heu-tracking-wide: 0.05em;
+
+    --heu-space-1: 4px;
+    --heu-space-2: 8px;
+    --heu-space-3: 12px;
+    --heu-space-4: 16px;
+    --heu-space-5: 20px;
+    --heu-space-6: 24px;
+    --heu-space-7: 28px;
+    --heu-space-8: 32px;
+    --heu-space-9: 36px;
+    --heu-space-10: 40px;
+    --heu-space-11: 44px;
+    --heu-space-12: 48px;
+    --heu-space-13: 52px;
+    --heu-space-14: 56px;
+
+    --heu-radius-xs: 4px;
+    --heu-radius-sm: 8px;
+    --heu-radius-md: 10px;
+    --heu-radius-lg: 12px;
+    --heu-radius-pill: 999px;
+
+    --heu-raise-sm: 0 1px 0 var(--heu-color-edge);
+    --heu-raise-md: 0 2px 0 var(--heu-color-edge);
+    --heu-raise-lg: 0 3px 0 var(--heu-color-edge);
+    --heu-raise-accent-sm: 0 1px 0 var(--heu-color-accent-edge);
+    --heu-raise-accent-md: 0 2px 0 var(--heu-color-accent-edge);
+    --heu-raise-accent-lg: 0 3px 0 var(--heu-color-accent-edge);
+    --heu-sink: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+    --heu-float: var(--heu-raise-lg), 0 10px 40px rgba(0, 0, 0, 0.2);
+    --heu-press: 2px;
+    --heu-opacity-disabled: 0.45;
+
+    --heu-duration: 160ms;
+    --heu-easing: ease-out;
+
+    --heu-chevron:
+      linear-gradient(45deg, transparent 40%, var(--heu-color-text-muted) 40% 65%, transparent 65%),
+      linear-gradient(135deg, transparent 35%, var(--heu-color-text-muted) 35% 60%, transparent 60%);
+
+    --heu-focus-color: var(--heu-color-accent);
+    --heu-focus-width: 2px;
+    --heu-focus-offset: 2px;
+
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --heu-duration: 0ms;
+      --heu-press: 0px;
+    }
+  }
+}

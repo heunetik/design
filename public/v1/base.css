@@ -1,0 +1,261 @@
+@layer heu.base {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--heu-color-page);
+    color: var(--heu-color-text);
+    font-family: var(--heu-font-sans);
+    font-size: var(--heu-size-3);
+    line-height: var(--heu-leading);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--heu-font-mono);
+    letter-spacing: var(--heu-tracking-tight);
+  }
+
+  h1 {
+    font-size: var(--heu-size-5);
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
+  a {
+    color: var(--heu-color-accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  :focus-visible {
+    outline: var(--heu-focus-width) solid var(--heu-focus-color);
+    outline-offset: var(--heu-focus-offset);
+  }
+
+  input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='button'], [type='submit']),
+  textarea {
+    max-width: 100%;
+    padding: var(--heu-space-2) var(--heu-space-3);
+    border: 1px solid var(--heu-color-border);
+    border-radius: var(--heu-radius-sm);
+    background: var(--heu-color-surface);
+    color: var(--heu-color-text);
+    font: inherit;
+    box-shadow: var(--heu-sink);
+  }
+
+  :is(input:not([type='checkbox'], [type='radio'], [type='range'], [type='color'], [type='file'], [type='button'], [type='submit']), textarea):focus-visible {
+    outline: none;
+    border-color: var(--heu-focus-color);
+    box-shadow: var(--heu-sink), 0 0 0 var(--heu-space-1) color-mix(in srgb, var(--heu-focus-color) 20%, transparent);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  select {
+    appearance: none;
+    max-width: 100%;
+    padding: var(--heu-space-2) var(--heu-space-10) var(--heu-space-2) var(--heu-space-4);
+    border: 1px solid var(--heu-color-border);
+    border-radius: var(--heu-radius-md);
+    background-color: var(--heu-color-surface);
+    background-image: var(--heu-chevron);
+    background-repeat: no-repeat;
+    background-size: 6px 6px;
+    background-position:
+      calc(100% - 23px) 55%,
+      calc(100% - 17px) 55%;
+    color: var(--heu-color-text);
+    font: inherit;
+    font-family: var(--heu-font-mono);
+    font-weight: 600;
+    box-shadow: var(--heu-raise-lg);
+    cursor: pointer;
+  }
+
+  select:hover:not(:disabled) {
+    filter: brightness(0.97);
+  }
+
+  select:is(:active, :open):not(:disabled) {
+    transform: translateY(var(--heu-press));
+    box-shadow: var(--heu-raise-sm);
+  }
+
+  @supports (appearance: base-select) {
+    select,
+    ::picker(select) {
+      appearance: base-select;
+    }
+
+    select::picker-icon {
+      display: none;
+    }
+
+    ::picker(select) {
+      margin-top: var(--heu-space-2);
+      padding: var(--heu-space-1);
+      border: 1px solid var(--heu-color-border);
+      border-radius: var(--heu-radius-lg);
+      background: var(--heu-color-surface);
+      box-shadow: var(--heu-float);
+    }
+
+    option {
+      padding: var(--heu-space-2) var(--heu-space-3);
+      border-radius: var(--heu-radius-sm);
+      cursor: pointer;
+    }
+
+    option::checkmark {
+      display: none;
+    }
+
+    option:is(:hover, :focus-visible) {
+      background: var(--heu-color-sunken);
+      outline: none;
+    }
+
+    option:checked {
+      background: var(--heu-color-accent-soft);
+      color: var(--heu-color-accent);
+    }
+  }
+
+  input:is([type='checkbox'], [type='radio']) {
+    appearance: none;
+    flex: none;
+    display: grid;
+    place-content: center;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    border: 1px solid var(--heu-color-border);
+    border-radius: var(--heu-radius-xs);
+    background: var(--heu-color-sunken);
+    box-shadow: var(--heu-sink);
+    cursor: pointer;
+  }
+
+  input:is([type='checkbox'], [type='radio'])::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--heu-color-on-accent);
+    scale: 0;
+    transition: scale var(--heu-duration) var(--heu-easing);
+  }
+
+  input[type='checkbox']::before {
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.5l2.3 2.3L9.5 3.5' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+  }
+
+  input[type='radio'],
+  input[type='radio']::before {
+    border-radius: 50%;
+  }
+
+  input[type='radio']::before {
+    width: 8px;
+    height: 8px;
+  }
+
+  input:is([type='checkbox'], [type='radio']):checked {
+    border-color: var(--heu-color-accent-edge);
+    background: var(--heu-color-accent);
+    box-shadow: var(--heu-raise-accent-md);
+  }
+
+  input:is([type='checkbox'], [type='radio']):checked::before {
+    scale: 1;
+  }
+
+  :is(input, textarea, select):disabled {
+    opacity: var(--heu-opacity-disabled);
+    cursor: not-allowed;
+  }
+
+  details {
+    padding: var(--heu-space-2) var(--heu-space-3);
+    border: 1px solid var(--heu-color-border);
+    border-radius: var(--heu-radius-sm);
+    background: var(--heu-color-surface);
+  }
+
+  summary {
+    color: var(--heu-color-text-muted);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  details[open] > summary {
+    margin-bottom: var(--heu-space-2);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--heu-size-2);
+  }
+
+  th,
+  td {
+    padding: var(--heu-space-2) var(--heu-space-3);
+    border-bottom: 1px solid var(--heu-color-border);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  :is(th, td):first-child {
+    padding-left: 0;
+  }
+
+  :is(th, td):last-child {
+    padding-right: 0;
+  }
+
+  th {
+    border-bottom-width: 2px;
+    color: var(--heu-color-text-muted);
+    font-family: var(--heu-font-mono);
+    font-size: var(--heu-size-1);
+    font-weight: 700;
+    letter-spacing: var(--heu-tracking-wide);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  dialog {
+    max-width: min(480px, calc(100vw - 2 * var(--heu-space-4)));
+    padding: var(--heu-space-5) var(--heu-space-6);
+    border: 1px solid var(--heu-color-border);
+    border-radius: var(--heu-radius-lg);
+    background: var(--heu-color-surface);
+    color: var(--heu-color-text);
+    box-shadow: var(--heu-float);
+  }
+
+  dialog::backdrop {
+    background: rgba(28, 32, 48, 0.35);
+  }
+}

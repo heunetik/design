@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>heu design</title>
+<link rel="stylesheet" href="./v1/tokens.css">
+<link rel="stylesheet" href="./v1/base.css">
+<link rel="stylesheet" href="./v1/components.css">
+<style>
+  body { display: grid; grid-template-columns: 220px minmax(0, 1fr); min-height: 100vh; }
+  nav { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: var(--heu-space-6) var(--heu-space-5); border-right: 1px solid var(--heu-color-border); }
+  nav .heu-kicker { margin: var(--heu-space-5) 0 var(--heu-space-1); }
+  nav a { display: block; padding: 2px 0; color: var(--heu-color-text-muted); }
+  nav a:hover { color: var(--heu-color-text); }
+  main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--heu-space-10); max-width: 960px; padding: var(--heu-space-6); }
+  header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--heu-space-4); }
+  header h1 { margin: 0; }
+  section h2 { margin: 0 0 var(--heu-space-1); }
+  section > p { margin: 0 0 var(--heu-space-3); color: var(--heu-color-text-muted); }
+  .preview { display: flex; flex-wrap: wrap; align-items: center; gap: var(--heu-space-3); padding: var(--heu-space-6); border: 1px solid var(--heu-color-border); border-radius: var(--heu-radius-lg); background: var(--heu-color-page); }
+  .preview:has(+ pre) { border-radius: var(--heu-radius-lg) var(--heu-radius-lg) 0 0; }
+  .preview.stack { flex-direction: column; align-items: stretch; }
+  pre { margin: 0; padding: var(--heu-space-4); overflow-x: auto; border: 1px solid var(--heu-color-border); border-top: 0; border-radius: 0 0 var(--heu-radius-lg) var(--heu-radius-lg); background: var(--heu-color-sunken); font: var(--heu-size-2)/1.5 var(--heu-font-mono); }
+  .tokens { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--heu-space-4); width: 100%; }
+  .token { display: grid; gap: var(--heu-space-2); font-size: var(--heu-size-2); }
+  .token code { font: var(--heu-size-1)/1.4 var(--heu-font-mono); color: var(--heu-color-text-muted); overflow-wrap: anywhere; }
+  .token b { font: 600 var(--heu-size-2) var(--heu-font-mono); }
+  .swatch, .shape { height: 56px; border: 1px solid var(--heu-color-border); border-radius: var(--heu-radius-sm); }
+  .shape { background: var(--heu-color-surface); }
+  .bar { height: 12px; background: var(--heu-color-accent); border-radius: 2px; }
+  .heu-toolgroup svg { display: block; width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .row { display: flex; flex-wrap: wrap; gap: var(--heu-space-3); margin: var(--heu-space-4) 0; }
+  label.check { display: flex; align-items: center; gap: var(--heu-space-2); }
+  .meter-demo { flex: 1 1 240px; }
+  .preview + .preview { margin-top: var(--heu-space-3); }
+  #demo-menu { position-area: bottom span-right; margin-top: var(--heu-space-2); }
+  @media (max-width: 720px) {
+    body { grid-template-columns: minmax(0, 1fr); }
+    nav { position: static; height: auto; padding: var(--heu-space-4); border-right: 0; border-bottom: 1px solid var(--heu-color-border); }
+    nav div { display: flex; flex-wrap: wrap; gap: 0 var(--heu-space-3); }
+    main { padding: var(--heu-space-4); }
+  }
+</style>
+</head>
+<body>
+<nav></nav>
+<main>
+  <header>
+    <h1>heu design</h1>
+    <div class="heu-segmented" id="theme">
+      <button class="heu-segmented__item" data-theme-value="auto">Auto</button>
+      <button class="heu-segmented__item" data-theme-value="light">Light</button>
+      <button class="heu-segmented__item" data-theme-value="dark">Dark</button>
+    </div>
+  </header>
+
+  <section id="colors" data-group="Tokens">
+    <h2>Colors</h2>
+    <p>Each color carries its light and dark value through light-dark().</p>
+    <div class="preview"><div class="tokens" data-tokens="color"></div></div>
+  </section>
+  <section id="type" data-group="Tokens">
+    <h2>Type</h2>
+    <p>Atkinson Hyperlegible Next for reading, JetBrains Mono for the interface.</p>
+    <div class="preview stack"><div class="tokens" data-tokens="font"></div><div class="tokens" data-tokens="size"></div></div>
+  </section>
+  <section id="space" data-group="Tokens">
+    <h2>Space</h2>
+    <div class="preview"><div class="tokens" data-tokens="space"></div></div>
+  </section>
+  <section id="radius" data-group="Tokens">
+    <h2>Radius</h2>
+    <div class="preview"><div class="tokens" data-tokens="radius"></div></div>
+  </section>
+  <section id="depth" data-group="Tokens">
+    <h2>Depth</h2>
+    <p>Raised things sit on a hard bottom edge. Sunken things get an inset well.</p>
+    <div class="preview"><div class="tokens" data-tokens="raise sink float"></div></div>
+  </section>
+  <section id="other" data-group="Tokens">
+    <h2>Other</h2>
+    <div class="preview"><div class="tokens" data-tokens="rest"></div></div>
+  </section>
+
+  <section id="text" data-group="Base">
+    <h2>Text</h2>
+    <p>From base.css. Headings use the mono face, body text the sans face.</p>
+    <div class="preview stack">
+      <h1>Heading one</h1>
+      <h2>Heading two</h2>
+      <h3>Heading three</h3>
+      <p>Body text with <em>italics</em>, <strong>bold</strong> and <a href="#text">a link</a>.</p>
+    </div>
+  </section>
+  <section id="fields" data-group="Base">
+    <h2>Text fields</h2>
+    <p>Fields sink into the surface. Focus one to see its halo.</p>
+    <div class="preview">
+      <input type="text" placeholder="Text">
+      <input type="search" placeholder="Search">
+      <input type="text" value="Disabled" disabled>
+      <textarea rows="2" placeholder="Textarea"></textarea>
+      <textarea rows="2" disabled>Disabled</textarea>
+    </div>
+  </section>
+  <section id="select" data-group="Base">
+    <h2>Select</h2>
+    <p>A keycap like the button. Browsers with customizable selects also get a raised option list.</p>
+    <div class="preview">
+      <select>
+        <option>Storage</option>
+        <option selected>Networking</option>
+        <option>Security</option>
+        <option>Compute</option>
+      </select>
+      <select disabled>
+        <option>Disabled</option>
+      </select>
+    </div>
+  </section>
+  <section id="checkboxes" data-group="Base">
+    <h2>Checkboxes</h2>
+    <div class="preview">
+      <label class="check"><input type="checkbox" checked> Checked</label>
+      <label class="check"><input type="checkbox"> Unchecked</label>
+      <label class="check"><input type="checkbox" checked disabled> Disabled</label>
+      <label class="check"><input type="checkbox" disabled> Disabled</label>
+    </div>
+  </section>
+  <section id="radios" data-group="Base">
+    <h2>Radios</h2>
+    <div class="preview">
+      <label class="check"><input type="radio" name="demo-radio" checked> Chosen</label>
+      <label class="check"><input type="radio" name="demo-radio"> Not chosen</label>
+      <label class="check"><input type="radio" name="demo-radio-disabled" checked disabled> Disabled</label>
+      <label class="check"><input type="radio" name="demo-radio-disabled" disabled> Disabled</label>
+    </div>
+  </section>
+  <section id="details" data-group="Base">
+    <h2>Details</h2>
+    <div class="preview stack">
+      <details>
+        <summary>Closed section</summary>
+        Hidden until opened.
+      </details>
+      <details open>
+        <summary>Open section</summary>
+        Content shows below the summary.
+      </details>
+    </div>
+  </section>
+  <section id="table" data-group="Base">
+    <h2>Table</h2>
+    <p>Rows line up with the content edge, so a table sits flush inside a card.</p>
+    <div class="preview stack">
+      <table>
+        <thead>
+          <tr><th>Module</th><th>Score</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Storage</td><td>82%</td><td>Passed</td></tr>
+          <tr><td>Networking</td><td>64%</td><td>Review</td></tr>
+          <tr><td>Security</td><td>91%</td><td>Passed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section id="dialog" data-group="Base">
+    <h2>Dialog</h2>
+    <p>A raised panel over a dimmed page. Open it with showModal().</p>
+    <div class="preview">
+      <button class="heu-button" data-demo data-open="demo-dialog">Open dialog</button>
+      <dialog id="demo-dialog">
+        <h3>Dialog title</h3>
+        <p>Press Escape or the button to close it.</p>
+        <form method="dialog"><button class="heu-button heu-button--accent">Done</button></form>
+      </dialog>
+    </div>
+  </section>
+
+  <section id="button" data-group="Components">
+    <h2>Button</h2>
+    <p>A keycap that presses into its edge. Works on button and a elements. A toggle shows accent while aria-pressed is true.</p>
+    <div class="preview">
+      <button class="heu-button" aria-pressed="true">Pressed</button>
+      <button class="heu-button">Neutral</button>
+      <button class="heu-button heu-button--accent">Accent</button>
+      <button class="heu-button heu-button--sm">Small</button>
+      <button class="heu-button heu-button--accent heu-button--sm">Small accent</button>
+      <button class="heu-button heu-button--bad">Delete</button>
+      <a class="heu-button" href="#button">Link</a>
+      <button class="heu-button" disabled>Disabled</button>
+    </div>
+  </section>
+  <section id="card" data-group="Components">
+    <h2>Card</h2>
+    <div class="preview stack">
+      <div class="heu-card">
+        <div class="heu-kicker">Kicker</div>
+        <p>Card content sits on the raised surface.</p>
+      </div>
+    </div>
+  </section>
+  <section id="kicker" data-group="Components">
+    <h2>Kicker</h2>
+    <div class="preview">
+      <span class="heu-kicker">Section label</span>
+    </div>
+  </section>
+  <section id="segmented" data-group="Components">
+    <h2>Segmented</h2>
+    <p>One choice out of a few. The chosen item rises out of the well. Mark it with aria-pressed or the --on modifier.</p>
+    <div class="preview">
+      <div class="heu-segmented">
+        <button class="heu-segmented__item" aria-pressed="true">Day</button>
+        <button class="heu-segmented__item" aria-pressed="false">Week</button>
+        <button class="heu-segmented__item" aria-pressed="false">Month</button>
+        <button class="heu-segmented__item" aria-pressed="false" disabled>Year</button>
+      </div>
+    </div>
+  </section>
+  <section id="toolgroup" data-group="Components">
+    <h2>Toolgroup</h2>
+    <p>A raised group of tools. The active tool sinks in. Click again to release it.</p>
+    <div class="preview">
+      <div class="heu-toolgroup">
+        <button class="heu-toolgroup__item" aria-pressed="true" title="Split"><svg viewBox="0 0 16 16"><circle cx="4" cy="4.5" r="2"/><circle cx="4" cy="11.5" r="2"/><path d="M5.7 5.6L14 12M5.7 10.4L14 4"/></svg></button>
+        <button class="heu-toolgroup__item" aria-pressed="false" title="Join"><svg viewBox="0 0 16 16"><circle cx="4" cy="4.5" r="2"/><circle cx="4" cy="11.5" r="2"/><path d="M5.8 5.4L10 8l-4.2 2.6M10 8h4"/></svg></button>
+        <button class="heu-toolgroup__item" aria-pressed="false" title="Erase" disabled><svg viewBox="0 0 16 16"><path d="M6 13.5L2.5 10 9 3.5 13.5 8 8 13.5zM5.5 7l4.5 4.5M8 13.5h6"/></svg></button>
+      </div>
+    </div>
+  </section>
+  <section id="chip" data-group="Components">
+    <h2>Chip</h2>
+    <p>A small pill. As a button it toggles with aria-pressed or the --on modifier. Tones mark a status.</p>
+    <div class="preview">
+      <span class="heu-chip">Static</span>
+      <button class="heu-chip">Toggle</button>
+      <button class="heu-chip heu-chip--on">On</button>
+      <button class="heu-chip" disabled>Disabled</button>
+    </div>
+    <div class="preview">
+      <span class="heu-chip heu-chip--good">Strong</span>
+      <span class="heu-chip heu-chip--warn">Review</span>
+      <span class="heu-chip heu-chip--bad">Weak</span>
+    </div>
+  </section>
+  <section id="meter" data-group="Components">
+    <h2>Meter</h2>
+    <div class="preview">
+      <div class="heu-meter meter-demo" role="meter" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60">
+        <div class="heu-meter__fill" style="width: 60%"></div>
+      </div>
+      <button class="heu-button heu-button--sm" data-demo data-step="-10">Less</button>
+      <button class="heu-button heu-button--sm" data-demo data-step="10">More</button>
+    </div>
+  </section>
+  <section id="callout" data-group="Components">
+    <h2>Callout</h2>
+    <p>A message banner. Accent by default, with good, warn and bad tones.</p>
+    <div class="preview stack">
+      <div class="heu-callout">A new version is available.</div>
+      <div class="heu-callout heu-callout--good">Progress saved.</div>
+      <div class="heu-callout heu-callout--warn">You are two modules behind plan.</div>
+      <div class="heu-callout heu-callout--bad">The file could not be read.</div>
+    </div>
+  </section>
+  <section id="menu" data-group="Components">
+    <h2>Menu</h2>
+    <p>A floating list of actions. Works as a popover; placement is up to the app.</p>
+    <div class="preview">
+      <div class="heu-menu">
+        <button class="heu-menu__item">Rename</button>
+        <button class="heu-menu__item heu-menu__item--on">Duplicate</button>
+        <button class="heu-menu__item" disabled>Move</button>
+        <hr>
+        <a class="heu-menu__item" href="#menu">Settings</a>
+      </div>
+      <button class="heu-button" popovertarget="demo-menu">Open menu</button>
+      <div class="heu-menu" id="demo-menu" popover>
+        <button class="heu-menu__item" popovertarget="demo-menu">Rename</button>
+        <button class="heu-menu__item" popovertarget="demo-menu">Duplicate</button>
+        <button class="heu-menu__item" popovertarget="demo-menu">Delete</button>
+      </div>
+    </div>
+  </section>
+  <section id="sr-only" data-group="Components">
+    <h2>Screen reader only</h2>
+    <p>Hidden on screen, read aloud by screen readers. The button below has a hidden label.</p>
+    <div class="preview">
+      <button class="heu-button heu-button--sm">Save <span class="heu-sr-only">the current draft</span></button>
+    </div>
+  </section>
+
+  <section id="together" data-group="Examples">
+    <h2>Together</h2>
+    <p>Components composed into a settings card.</p>
+    <div class="preview stack">
+      <div class="heu-card">
+        <div class="heu-kicker">Reading speed</div>
+        <h3>450 words per minute</h3>
+        <div class="heu-meter"><div class="heu-meter__fill" style="width: 45%"></div></div>
+        <div class="row">
+          <div class="heu-segmented">
+            <button class="heu-segmented__item" aria-pressed="false">Slow</button>
+            <button class="heu-segmented__item" aria-pressed="true">Normal</button>
+            <button class="heu-segmented__item" aria-pressed="false">Fast</button>
+          </div>
+        </div>
+        <label class="check"><input type="checkbox" checked> Pause on punctuation</label>
+        <div class="row">
+          <button class="heu-button heu-button--accent">Start</button>
+          <button class="heu-button">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<script>
+  const snippetOf = preview => {
+    const copy = preview.cloneNode(true);
+    copy.querySelectorAll('[data-demo]').forEach(el => el.remove());
+    const lines = copy.innerHTML.split('\n').filter(line => line.trim());
+    const indent = Math.min(...lines.map(line => line.match(/^ */)[0].length));
+    return lines.map(line => line.slice(indent)).join('\n');
+  };
+  for (const preview of document.querySelectorAll('.preview:not(:has([data-tokens]))')) {
+    const pre = document.createElement('pre');
+    pre.textContent = snippetOf(preview);
+    preview.after(pre);
+  }
+
+  const tokens = new Map();
+  const collect = rules => {
+    for (const rule of rules) {
+      if (rule.cssRules) collect(rule.cssRules);
+      if (rule.selectorText !== ':root') continue;
+      for (const name of rule.style) if (name.startsWith('--heu-')) tokens.set(name, rule.style.getPropertyValue(name).trim());
+    }
+  };
+  for (const sheet of document.styleSheets) collect(sheet.cssRules);
+
+  const sample = {
+    color: name => `<div class="swatch" style="background: var(${name})"></div>`,
+    font: name => `<div style="font: 1.25rem var(${name})">Quick brown fox 0123</div>`,
+    size: name => `<div style="font-size: var(${name}); line-height: 1.2">Quick brown fox</div>`,
+    space: name => `<div class="bar" style="width: var(${name})"></div>`,
+    radius: name => `<div class="shape" style="border-radius: var(${name})"></div>`,
+    raise: name => `<div class="shape" style="box-shadow: var(${name})"></div>`,
+    sink: name => `<div class="shape" style="background: var(--heu-color-sunken); box-shadow: var(${name})"></div>`,
+    float: name => `<div class="shape" style="box-shadow: var(${name})"></div>`,
+  };
+  const groupOf = name => name.slice('--heu-'.length).split('-')[0];
+  for (const target of document.querySelectorAll('[data-tokens]')) {
+    const groups = target.dataset.tokens.split(' ');
+    const shown = [...tokens].filter(([name]) => groups.includes(groupOf(name)) || (groups.includes('rest') && !sample[groupOf(name)]));
+    target.innerHTML = shown.map(([name, value]) =>
+      `<div class="token">${sample[groupOf(name)]?.(name) ?? ''}<b>${name}</b><code>${value}</code></div>`).join('');
+  }
+
+  const nav = document.querySelector('nav');
+  for (const section of document.querySelectorAll('section[data-group]')) {
+    const group = section.dataset.group;
+    let list = nav.querySelector(`[data-group="${group}"]`);
+    if (!list) {
+      nav.insertAdjacentHTML('beforeend', `<p class="heu-kicker">${group}</p><div data-group="${group}"></div>`);
+      list = nav.lastElementChild;
+    }
+    list.insertAdjacentHTML('beforeend', `<a href="#${section.id}">${section.querySelector('h2').textContent}</a>`);
+  }
+
+  const press = (item, pressed) => item.setAttribute('aria-pressed', pressed);
+  document.addEventListener('click', event => {
+    const segment = event.target.closest('.heu-segmented__item');
+    if (segment) for (const item of segment.parentElement.children) press(item, item === segment);
+
+    const tool = event.target.closest('.heu-toolgroup__item');
+    if (tool) {
+      const wasPressed = tool.getAttribute('aria-pressed') === 'true';
+      for (const item of tool.parentElement.children) press(item, item === tool && !wasPressed);
+    }
+
+    const opener = event.target.closest('[data-open]');
+    if (opener) document.getElementById(opener.dataset.open).showModal();
+
+    const chip = event.target.closest('button.heu-chip');
+    if (chip) chip.classList.toggle('heu-chip--on');
+
+    const step = event.target.closest('[data-step]');
+    if (step) {
+      const meter = step.parentElement.querySelector('.heu-meter');
+      const value = Math.min(100, Math.max(0, +meter.getAttribute('aria-valuenow') + +step.dataset.step));
+      meter.setAttribute('aria-valuenow', value);
+      meter.firstElementChild.style.width = `${value}%`;
+    }
+  });
+
+  const setTheme = theme => {
+    if (theme === 'auto') delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = theme;
+    for (const item of document.querySelectorAll('#theme .heu-segmented__item')) press(item, item.dataset.themeValue === theme);
+    try { localStorage.setItem('heu-theme', theme); } catch {}
+  };
+  let saved = 'auto';
+  try { saved = localStorage.getItem('heu-theme') ?? 'auto'; } catch {}
+  setTheme(saved);
+  document.querySelector('#theme').addEventListener('click', event => {
+    const item = event.target.closest('[data-theme-value]');
+    if (item) setTheme(item.dataset.themeValue);
+  });
+</script>
+</body>
+</html>
